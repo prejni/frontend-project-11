@@ -1,12 +1,11 @@
-# Makefile
 install:
-	npm install
+	npm ci
 
-brain-games:
-	node bin/brain-games.js
+develop:
+	npx webpack serve
 
-publish:
-	npm publish --dry-run
+build:
+	NODE_ENV=production npx webpack
 
 lint:
-	npx eslint .
+	npx eslint ./src/js/**/*.js

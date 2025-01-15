@@ -1,52 +1,53 @@
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import url from 'url';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+const filename = url.fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+const config = {
+  mode: process.env.NODE_ENV || 'development',
+  entry: {
+    index: './src/js/index.js',
+  },
   output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+    path: path.resolve(dirname, 'dist'),
+    filename: '[name].js',
   },
   devServer: {
-    static: path.resolve(__dirname, 'dist'),
-    port: 8080,
+    open: false,
+    host: 'localhost',
     hot: true,
+    static: path.resolve(dirname, 'dist'),
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './index.html' }),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      scriptLoading: 'module',
+      favicon: './src/assets/favicon.ico',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
   ],
   module: {
     rules: [
       {
-        test: /\.(scss)$/,
-        use: [
-          {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: 'style-loader',
-          },
-          {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: 'css-loader',
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: () => [
-                  autoprefixer,
-                ],
-              },
-            },
-          },
-          {
-            // Loads a SASS/SCSS file and compiles it to CSS
-            loader: 'sass-loader',
-          },
-        ],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.(eot|ttf|otf|woff2?|png|jpe?g|gif|webp|avif|svg)$/i,
+        type: 'asset',
       },
     ],
   },
 };
+
+export default config;
