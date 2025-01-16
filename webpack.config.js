@@ -1,53 +1,36 @@
-import path from 'path';
-import url from 'url';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const filename = url.fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-
-const config = {
+module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  entry: {
-    index: './src/js/index.js',
-  },
+  entry: './src/index.js',
+  devtool: 'inline-source-map',
   output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
-    path: path.resolve(dirname, 'dist'),
-    filename: '[name].js',
   },
   devServer: {
-    open: false,
-    host: 'localhost',
+    static: path.resolve(__dirname, 'dist'),
+    port: 8080,
     hot: true,
-    static: path.resolve(dirname, 'dist'),
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-      scriptLoading: 'module',
-      favicon: './src/assets/favicon.ico',
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
-  ],
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'style-loader'],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', 'postcss-loader'],
-      },
-      {
-        test: /\.(eot|ttf|otf|woff2?|png|jpe?g|gif|webp|avif|svg)$/i,
-        type: 'asset',
       },
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+    }),
+  ],
 };
-
-export default config;

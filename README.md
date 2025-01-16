@@ -1,37 +1,22 @@
-# Project "RSS-aggregator"
-[![Actions Status](https://github.com/Teihden/frontend-project-11/workflows/hexlet-check/badge.svg)](https://github.com/Teihden/frontend-project-11/actions)
-[![CI](https://github.com/Teihden/frontend-project-11/workflows/CI/badge.svg)](https://github.com/Teihden/frontend-project-11/actions/workflows/CI.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1b3b9d77404f3cf27cd4/maintainability)](https://codeclimate.com/github/Teihden/frontend-project-11/maintainability)
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/WitsonBair/frontend-project-11/workflows/hexlet-check/badge.svg)](https://github.com/WitsonBair/frontend-project-11/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a4aaad7222289d37c007/maintainability)](https://codeclimate.com/github/WitsonBair/frontend-project-11/maintainability)
 
-## About
+# RSS aggregator project
 
-**"Rss-aggregator"**  is a service for aggregating RSS feeds, which can be used to read a variety of sources, such as blogs. It allows you to add an unlimited number of RSS feeds, updates them itself and adds new entries to the common stream.
+Hello! This is a third project from [Hexlet](https://ru.hexlet.io/) Frontend course.
 
-## Vercel deployment
-[https://frontend-project-11-teihden.vercel.app](https://frontend-project-11-teihden.vercel.app)
+Used technology stack: JavaScript, HTML5 & CSS3, node.js, Webpack, Bootstrap 5, ESLint (Airbnb), Git, GitHub Actions
 
-## Usage
+Used libraries: yup, lodash, on-change, i18next, hexlet-all-origins
 
-You should have Node.js installed before proceeding. Only test JS against v18 and on macOS.
+## Description
+This is [a website](https://frontend-project-11-rho-ten.vercel.app/) that can aggregate, parse, render and update RSSs (news, new lessons etc.) from different submitted RSS links.
 
-```shell
-# Clone the repo
-git clone https://github.com/Teihden/frontend-project-11
-cd frontend-project-11
+## How to install
 
-# Install dependencies
-make install
-```
+1. Clone repository
+2. Install dev dependencies to the project
+3. Enter: npm start
 
-## CLI
-
-```shell
-# Runs Eslint against source code for quality
-make lint
-
-# Starts the Webpack development server
-make develop
-
-# Starts the project build
-make build
-```
+Requirements: node.js, npm
